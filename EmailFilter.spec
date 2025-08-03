@@ -5,7 +5,7 @@ a = Analysis(
     ['EmailFilter.py'],
     pathex=[],
     binaries=[],
-    datas=[('/Users/huntergoat/Documents/Client_Secret/client_secret_338974916213-1n8jufq306gb00aarn7dvcs6n0io64id.apps.googleusercontent.com.json', '.')],
+    datas=[('client_secret.json', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

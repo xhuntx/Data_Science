@@ -10,11 +10,9 @@ import pickle
 import os
 import sys
 import gspread
+import pathlib
 
-gc = gspread.oauth(
-    credentials_filename='/Users/huntergoat/Documents/Client_Secret/client_secret_338974916213-1n8jufq306gb00aarn7dvcs6n0io64id.apps.googleusercontent.com.json',
-    authorized_user_filename='token.json'
-)
+
 # ==== Gmail API Scope ====
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
@@ -53,27 +51,34 @@ x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
 model = DecisionTreeClassifier()
 model.fit(x_train, y_train)
 
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller."""
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 def get_client_secret_path():
-    filename = '/Users/huntergoat/Documents/Client_Secret/client_secret_338974916213-1n8jufq306gb00aarn7dvcs6n0io64id.apps.googleusercontent.com.json'
-    if getattr(sys, 'frozen', False):
-        return os.path.join(sys._MEIPASS, filename)
-    else:
-        return os.path.abspath(filename)
-
-
+    return resource_path("client_secret.json")  # Must be bundled via PyInstaller
 
 def authenticate_gmail():
-    global service
-    creds = None
+    from google.oauth2.credentials import Credentials
 
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    else:
-        flow = InstalledAppFlow.from_client_secrets_file(get_client_secret_path(), SCOPES)
-        creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
+    creds = None
+    token_path = os.path.join(pathlib.Path.home(), ".gmail_token.json")
+
+    if os.path.exists(token_path):
+        creds = Credentials.from_authorized_user_file(token_path, SCOPES)
+
+    if not creds or not creds.valid:
+        try:
+            flow = InstalledAppFlow.from_client_secrets_file(get_client_secret_path(), SCOPES)
+            creds = flow.run_local_server(port=0)
+            with open(token_path, 'w') as token:
+                token.write(creds.to_json())
+        except Exception as e:
+            raise RuntimeError(f"OAuth Authentication failed: {e}")
 
     service = build('gmail', 'v1', credentials=creds)
     return service
