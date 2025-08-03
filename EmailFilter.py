@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
-import base64
 import pickle
 import os
 import sys
