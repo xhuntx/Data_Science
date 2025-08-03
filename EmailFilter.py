@@ -9,7 +9,12 @@ import base64
 import pickle
 import os
 import sys
+import gspread
 
+gc = gspread.oauth(
+    credentials_filename='/Users/huntergoat/Documents/Client_Secret/client_secret_338974916213-1n8jufq306gb00aarn7dvcs6n0io64id.apps.googleusercontent.com.json',
+    authorized_user_filename='token.json'
+)
 # ==== Gmail API Scope ====
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
