@@ -1,4 +1,4 @@
-# *WELCOME THIS IS A  (Currently Mac only)*
+# THIS IS A Email filter for Gmail (Currently Mac only)*
 
 ## Instructions:
 To use:
