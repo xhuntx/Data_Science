@@ -40,9 +40,9 @@ Emails = [
     "qteepie1212@aol.com", "Budzeyday@aol.com", "laura.brown@meditechgroup.com", "user9321@guerrillamail.com",
     "test8823@temp-mail.org", "guest1145@10minutemail.com", "demo7432@dropmail.me",
     "mailbot6590@maildrop.cc", "emily.johnson94@gmail.com", "michael.brooks21@yahoo.com",
-    "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","no_reply@email.apple.com","per@scrimba.com"
+    "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","no_reply@email.apple.com","resources@hjtep.org","per@scrimba.com"
 ]+ user_spam
-labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*2 + [0]*1 + [1]*1
+labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*2 + [0]*2 + [1]*1
 
 v = CountVectorizer()
 x = v.fit_transform(Emails)
