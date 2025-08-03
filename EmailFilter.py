@@ -42,7 +42,7 @@ Emails = [
     "mailbot6590@maildrop.cc", "emily.johnson94@gmail.com", "michael.brooks21@yahoo.com",
     "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","per@scrimba.com","resources@hjtep.org"
 ]+ user_spam
-labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*2
+labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*1
 
 v = CountVectorizer()
 x = v.fit_transform(Emails)
