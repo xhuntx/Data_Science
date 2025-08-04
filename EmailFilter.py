@@ -16,16 +16,20 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
 # ==== ML Spam Classifier Setup ====
 
-USER_SPAM_FILE = "user_spam.pkl"
+def get_user_path():
+    return os.path.join(pathlib.Path.home(),".user_spam.pkl")
+    
 
 def load_user_spam():
-    if os.path.exists(USER_SPAM_FILE):
-        with open(USER_SPAM_FILE, "rb") as f:
+    path = get_user_path()
+    if os.path.exists(path):
+        with open(path, "rb") as f:
             return pickle.load(f)
     return []
 
 def save_user_spam(spam_list):
-    with open(USER_SPAM_FILE, "wb") as f:
+    path = get_user_path()
+    with open(path, "wb") as f:
         pickle.dump(spam_list, f)
 
 user_spam = load_user_spam()
@@ -41,12 +45,13 @@ Emails = [
     "mailbot6590@maildrop.cc", "emily.johnson94@gmail.com", "michael.brooks21@yahoo.com",
     "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","per@scrimba.com","resources@hjtep.org"
 ]+ user_spam
-labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*4
+labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*1
 
-Emails = Emails+ user_spam
-labels = labels + [1]*len(user_spam) 
-# This is to check how long each list is
-# print(len(Emails),len(labels))
+def get_training_data():
+    global Emails,labels, user_spam
+    Emails = Emails + user_spam
+    labels = labels + [1] * len(user_spam)
+    return Emails, labels
 
 v = CountVectorizer()
 x = v.fit_transform(Emails)
@@ -145,7 +150,7 @@ def classify_emails():
 
 root = tk.Tk()
 root.title("Gmail Spam Classifier")
-root.geometry("640x500")
+root.geometry("640x640")
 
 top_frame = tk.Frame(root)
 top_frame.pack(pady=10)
@@ -172,15 +177,14 @@ def report_spam():
     if email:
         user_spam.append(email)
         save_user_spam(user_spam)
-        Emails.append(email)
-        labels.append(1)
+        Emails, labels = get_training_data()
         global x_train, x_test, y_train, y_test, model, v
         x = v.fit_transform(Emails)
         x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
         model.fit(x_train, y_train)
-        result_text.insert(tk.END, f"{Emails} reported as SPAM and added to model.\n\n")
+        result_text.insert(tk.END, f"{email} reported as SPAM and added to model.\n\n")
         userSpamEntry.delete(0, tk.END)
-
+        spam_listbox.insert(tk.END, email)
 tk.Button(userSpamFrame, text="Report Spam", command=report_spam, font=("Arial", 12)).pack(side=tk.LEFT, padx=10)
 spam_list_frame = tk.Frame(root)
 spam_list_frame.pack(pady=10)
@@ -197,16 +201,12 @@ def remove_selected_spam():
     index = selected[0]
     email = spam_listbox.get(index)
     spam_listbox.delete(index)
+
     if email in user_spam:
         user_spam.remove(email)
         save_user_spam(user_spam)
-
-        global Emails, labels, x_train, x_test, y_train, y_test, model, v
-        Emails = Emails.copy()
-        labels = labels.copy()
-        del_index = Emails.index(email)
-        del Emails[del_index]
-        del labels[del_index]
+        Emails, labels = get_training_data()
+        global x_train, x_test, y_train, y_test, model, v
         x = v.fit_transform(Emails)
         x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
         model.fit(x_train, y_train)
