@@ -8,5 +8,5 @@ Go into the dist folder and download the [Email Filter zip file](dist/EmailFilte
 go through Google auth,
 and choose how many emails you want filtered.
 
-### Option 2 App (Apple Silicon onlu):
+### Option 2 App (Apple Silicon only):
 Download the app from here -> [Email Filter](dist/EmailFilter.zip), and run it no extra steps.
