@@ -41,10 +41,16 @@ Emails = [
     "mailbot6590@maildrop.cc", "emily.johnson94@gmail.com", "michael.brooks21@yahoo.com",
     "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","per@scrimba.com","resources@hjtep.org"
 ]+ user_spam
-labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*3
+labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*4
+
+Emails = Emails+ user_spam
+labels = labels + [1]*len(user_spam) 
+# This is to check how long each list is
+# print(len(Emails),len(labels))
 
 v = CountVectorizer()
 x = v.fit_transform(Emails)
+assert len(Emails) == len(labels), f"Email and label length mismatch: {len(Emails)} vs {len(labels)}"
 x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
 model = DecisionTreeClassifier()
 model.fit(x_train, y_train)
@@ -58,7 +64,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 def get_client_secret_path():
-    return resource_path("client_secret.json")  # Must be bundled via PyInstaller
+    return resource_path("client_secret.json")  
 
 def authenticate_gmail():
     from google.oauth2.credentials import Credentials
