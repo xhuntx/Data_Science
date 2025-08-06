@@ -754,7 +754,7 @@
 		</data>
 		<key>Resources/base_library.zip</key>
 		<data>
-		lUg2CbnBEAWMFu9bkMyxAmX1WN8=
+		pbrLWEBy3Li+sRUGw2xChJ2RWFg=
 		</data>
 		<key>Resources/certifi/cacert.pem</key>
 		<data>
@@ -763,6 +763,10 @@
 		<key>Resources/certifi/py.typed</key>
 		<data>
 		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+		</data>
+		<key>Resources/client_secret.json</key>
+		<data>
+		i8D+ErCW14JeBfxCJX0x/ep9fqc=
 		</data>
 		<key>Resources/dateutil/zoneinfo/dateutil-zoneinfo.tar.gz</key>
 		<data>
@@ -7657,6 +7661,11 @@
 			<key>requirement</key>
 			<string>cdhash H"b1caf1710516485484d4dab0eebc0dc721df75dd"</string>
 		</dict>
+		<key>Frameworks/client_secret.json</key>
+		<dict>
+			<key>symlink</key>
+			<string>../Resources/client_secret.json</string>
+		</dict>
 		<key>Frameworks/contourpy/_contourpy.cpython-313-darwin.so</key>
 		<dict>
 			<key>cdhash</key>
@@ -12250,7 +12259,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u6Nb/SZesqdIqSJ7BSiEBNQorriWVbLyBqaqCa9/mNY=
+			xOkUg/vSPyAJOc5iExfrG1nUsGH3QgEKGQb35tPC+z0=
 			</data>
 		</dict>
 		<key>Resources/certifi/cacert.pem</key>
@@ -12271,6 +12280,13 @@
 		<dict>
 			<key>symlink</key>
 			<string>../Frameworks/charset_normalizer</string>
+		</dict>
+		<key>Resources/client_secret.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			v50fftLYlt+iQW+t44n90Xxx2vhtESfiNkJ5VPMjadc=
+			</data>
 		</dict>
 		<key>Resources/contourpy</key>
 		<dict>
