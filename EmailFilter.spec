@@ -5,7 +5,7 @@ a = Analysis(
     ['EmailFilter.py'],
     pathex=[],
     binaries=[],
-    datas=[('client_secret.json', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Basic App Info -->
+    <key>CFBundleName</key>
+    <string>Email Filter</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Email Filter</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>com.yourcompany.emailfilter</string>
+
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleExecutable</key>
+    <string>Email Filter</string>
+
+    <!-- Networking Permissions -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+
+    <!-- Browser / OAuth Support -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>http</string>
+        <string>https</string>
+    </array>
+</dict>
+</plist>
