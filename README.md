@@ -1,4 +1,4 @@
-# Email filter for Gmail (Currently Mac only)*
+# Email filter for Gmail
 
 ## Instructions:
 ### Option 1 Terminal file:
