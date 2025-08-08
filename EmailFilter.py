@@ -15,16 +15,18 @@ import pathlib
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
 # ==== ML Spam Classifier Setup ====
-
 def get_user_path():
-    return os.path.join(pathlib.Path.home(),".user_spam.pkl")
-    
+    return os.path.join(pathlib.Path.home(), "user_spam.pkl")
+
 
 def load_user_spam():
     path = get_user_path()
     if os.path.exists(path):
-        with open(path, "rb") as f:
-            return pickle.load(f)
+        try:
+            with open(path, "rb") as f:
+                return pickle.load(f)
+        except Exception:
+            return []  # corrupted file fallback
     return []
 
 def save_user_spam(spam_list):
@@ -33,7 +35,7 @@ def save_user_spam(spam_list):
         pickle.dump(spam_list, f)
 
 user_spam = load_user_spam()
-Emails = [
+base_Emails = [
     "bafake5232@decodewp.com", "brightsky39@emailondeck.com", "vortex.mirror@fakeinbox.com",
     "nightowl921@moakt.cc", "zenpanda456@guerrillamail.com", "coolcloud888@10minutemail.com",
     "flashyduck01@trashmail.com", "lunarwave21@temp-mail.org", "greenowl77@dropmail.me",
@@ -45,17 +47,20 @@ Emails = [
     "mailbot6590@maildrop.cc", "emily.johnson94@gmail.com", "michael.brooks21@yahoo.com",
     "sarah.taylor@outlook.com", "daniel.martinez83@hotmail.com", "laura.nguyen01@gmail.com", "googlecloud@google.com","security@getgitguardian.com","no-reply@accounts.google.com","support@github.com","honinghindus@gmail.com","lilaroyjggdgdgrtyrg@gmail.com","per@scrimba.com","resources@hjtep.org"
 ]+ user_spam
-labels = [1]*10 + [0]*11 + [1]*5 + [0]*10 + [1]*3 +[0]*3
+base_labels = [1 if i < 10 or (21 <= i < 26) or (36 <= i) else 0 for i in range(len(base_Emails))]
+
 
 def get_training_data():
-    global Emails,labels, user_spam
-    Emails = Emails + user_spam
-    labels = labels + [1] * len(user_spam)
+    user_spam = load_user_spam()
+    Emails = base_Emails + user_spam
+    labels = base_labels + user_spam
+
+    assert len(Emails) == len(labels), f"Training data mismatch: {len(Emails)} emails vs {len(labels)} labels"
     return Emails, labels
 
+Emails, labels = get_training_data()
 v = CountVectorizer()
 x = v.fit_transform(Emails)
-assert len(Emails) == len(labels), f"Email and label length mismatch: {len(Emails)} vs {len(labels)}"
 x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
 model = DecisionTreeClassifier()
 model.fit(x_train, y_train)
@@ -173,18 +178,25 @@ userSpamEntry = tk.Entry(userSpamFrame, width=30, font=("Arial", 12))
 userSpamEntry.pack(side=tk.LEFT)
 
 def report_spam():
-    email = userSpamEntry.get().rstrip()
-    if email:
-        user_spam.append(email)
-        save_user_spam(user_spam)
-        Emails, labels = get_training_data()
-        global x_train, x_test, y_train, y_test, model, v
-        x = v.fit_transform(Emails)
-        x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
-        model.fit(x_train, y_train)
-        result_text.insert(tk.END, f"{email} reported as SPAM and added to model.\n\n")
-        userSpamEntry.delete(0, tk.END)
-        spam_listbox.insert(tk.END, email)
+    email = userSpamEntry.get().strip()
+    if not email:
+        return
+    user_spam = load_user_spam()
+    if email in user_spam:
+        result_text.insert(tk.END, f"{email} already reported.\n")
+        return
+    user_spam.append(email)
+    save_user_spam(user_spam)
+    Emails, labels = get_training_data()
+    global x_train, x_test, y_train, y_test, model, v
+    v = CountVectorizer()
+    x = v.fit_transform(Emails)
+    x_train, x_test, y_train, y_test = train_test_split(x, labels, test_size=0.01)
+    model.fit(x_train, y_train)
+    result_text.insert(tk.END, f"{email} reported as SPAM and added to model.\n\n")
+    spam_listbox.insert(tk.END, email)
+    userSpamEntry.delete(0, tk.END)
+
 tk.Button(userSpamFrame, text="Report Spam", command=report_spam, font=("Arial", 12)).pack(side=tk.LEFT, padx=10)
 spam_list_frame = tk.Frame(root)
 spam_list_frame.pack(pady=10)
