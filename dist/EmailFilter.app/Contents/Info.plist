@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>EmailFilter</string>
 	<key>CFBundleIconFile</key>
-	<string>icon-windowed.icns</string>
+	<string>Email Filter-.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>EmailFilter</string>
 	<key>CFBundleInfoDictionaryVersion</key>

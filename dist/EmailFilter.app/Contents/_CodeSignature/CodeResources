@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/Email Filter-.icns</key>
+		<data>
+		u//T+1DtoJ2iOyCnSsMxwGo+e2g=
+		</data>
 		<key>Resources/_tcl_data/auto.tcl</key>
 		<data>
 		q3LD5+JJwylBqn63fZx2SxIFWog=
@@ -754,7 +758,7 @@
 		</data>
 		<key>Resources/base_library.zip</key>
 		<data>
-		QwliQbzjbYxLaMxA/Lg62JtQTDE=
+		k8lS+n2VQfgbEkGO37NrIkcZXGo=
 		</data>
 		<key>Resources/certifi/cacert.pem</key>
 		<data>
@@ -3015,10 +3019,6 @@
 		<key>Resources/httplib2/cacerts.txt</key>
 		<data>
 		rOMq7dEDtp7JaMPR7bWyhtKRfBE=
-		</data>
-		<key>Resources/icon-windowed.icns</key>
-		<data>
-		eEHOuYpZLB0vKGVIWGZOh5rH8+o=
 		</data>
 		<key>Resources/matplotlib/mpl-data/fonts/afm/cmex10.afm</key>
 		<data>
@@ -10916,6 +10916,13 @@
 			<key>symlink</key>
 			<string>../Frameworks/CoreFoundation</string>
 		</dict>
+		<key>Resources/Email Filter-.icns</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GqLwfxd5UbC0yKdzESehalDgvH0rg9lEJhdGHjhGZmA=
+			</data>
+		</dict>
 		<key>Resources/Foundation</key>
 		<dict>
 			<key>symlink</key>
@@ -12259,7 +12266,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v+rb7ryKrb02+FazOm0isDiIceYVA7I7CcmcV0UFLsk=
+			kGWZHh9EcO+W3xDZ+EPiPg8u6sfloTqrAurOtd4DiC0=
 			</data>
 		</dict>
 		<key>Resources/certifi/cacert.pem</key>
@@ -16225,13 +16232,6 @@
 			<key>hash2</key>
 			<data>
 			AbmYP54iGeKRQ1APtfQvHlo9wul2jVmznmbTzy2fTV4=
-			</data>
-		</dict>
-		<key>Resources/icon-windowed.icns</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			uQo7VuWRab4Phv4EEGmfQsyqFqDIXZgO8OtgaAMvCzY=
 			</data>
 		</dict>
 		<key>Resources/kiwisolver</key>
